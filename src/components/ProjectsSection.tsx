@@ -8,7 +8,8 @@ import {
   Sparkles, Target, AlertCircle, FileText, CheckCircle, 
   Layers, Link, Plus, Trash, Folder, Terminal, 
   Search, BarChart2, MessageSquare, Play, Users, 
-  ShieldCheck, ArrowRight, Eye, Edit, Upload
+  ShieldCheck, ArrowRight, Eye, Edit, Upload,
+  X, ZoomIn, ZoomOut, Download
 } from "lucide-react";
 import { ProjectItem, PortfolioConfig, TableRow } from "../types";
 import AIPanel from "./AIPanel";
@@ -23,6 +24,14 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
   const [activeProjIndex, setActiveProjIndex] = useState(0);
   const activeProject = portfolio.projects[activeProjIndex] || portfolio.projects[0];
   const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
+  // In-app interactive PDF preview states
+  const [previewPdfInfo, setPreviewPdfInfo] = useState<{
+    name: string;
+    url: string;
+    project: typeof activeProject;
+  } | null>(null);
+  const [pdfZoom, setPdfZoom] = useState(100);
 
   // AI assist overlay
   const [aiAssistState, setAiAssistState] = useState<{
@@ -196,6 +205,14 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
     if (attach.url === "#") {
       e.preventDefault();
       alert(`Đang tải mẫu tệp: ${attach.name}`);
+    } else if (attach.type === "pdf") {
+      e.preventDefault();
+      setPreviewPdfInfo({
+        name: attach.name,
+        url: attach.url,
+        project: activeProject
+      });
+      setPdfZoom(100);
     } else if (attach.url.startsWith("data:")) {
       e.preventDefault();
       try {
@@ -600,6 +617,199 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
             }
           }}
         />
+      )}
+
+      {/* Interactive PDF Preview Modal */}
+      {previewPdfInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/85 backdrop-blur-md p-4">
+          <div className="bg-slate-100 dark:bg-slate-950 w-full max-w-4xl h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-slate-200 dark:border-slate-800">
+            {/* Modal header */}
+            <div className="bg-white dark:bg-slate-900 px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-3 min-w-0">
+                <FileText className="w-6 h-6 text-teal-600 dark:text-teal-400 shrink-0" />
+                <div className="min-w-0">
+                  <h3 className="text-sm md:text-base font-bold text-slate-800 dark:text-slate-100 truncate">
+                    {previewPdfInfo.name}
+                  </h3>
+                  <p className="text-[10px] text-slate-400 font-mono tracking-tight truncate">
+                    {previewPdfInfo.url} • Tệp minh chứng học tập
+                  </p>
+                </div>
+              </div>
+
+              {/* Toolbar controls */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setPdfZoom(prev => Math.max(50, prev - 10))}
+                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer"
+                  title="Thu nhỏ"
+                >
+                  <ZoomOut className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-mono text-slate-600 dark:text-slate-400 w-12 text-center select-none font-semibold">
+                  {pdfZoom}%
+                </span>
+                <button
+                  onClick={() => setPdfZoom(prev => Math.min(150, prev + 10))}
+                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer"
+                  title="Phóng to"
+                >
+                  <ZoomIn className="w-4 h-4" />
+                </button>
+
+                <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-800 mx-1" />
+
+                {/* Direct download */}
+                <a
+                  href={previewPdfInfo.url}
+                  download={previewPdfInfo.name}
+                  className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white p-1.5 px-3 rounded-lg flex items-center gap-1.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  title="Tải tệp này xuống"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Tải xuống</span>
+                </a>
+
+                <button
+                  onClick={() => setPreviewPdfInfo(null)}
+                  className="p-1.5 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg text-slate-400 hover:text-red-500 transition-colors ml-1 cursor-pointer"
+                  title="Đóng"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Document display area */}
+            <div className="flex-1 overflow-y-auto p-6 md:p-10 flex justify-center bg-slate-200/50 dark:bg-slate-900/40">
+              <div className="w-fit h-fit p-4 flex justify-center items-start origin-top transition-transform duration-200" style={{ transform: `scale(${pdfZoom / 100})` }}>
+                <div className="bg-white text-slate-800 shadow-xl border border-slate-300/60 rounded-sm w-[595px] min-h-[842px] p-10 md:p-12 relative flex flex-col justify-between font-serif select-text leading-relaxed">
+                  {/* PDF Content */}
+                  <div>
+                    {/* Academic style Header */}
+                    <div className="border-b border-double border-slate-300 pb-4 mb-8 flex items-start justify-between">
+                      <div>
+                        <p className="text-[10px] font-sans font-bold uppercase tracking-wider text-teal-800">
+                          ĐẠI HỌC QUỐC GIA HÀ NỘI
+                        </p>
+                        <p className="text-[11px] font-sans font-bold uppercase text-slate-700">
+                          TRƯỜNG ĐẠI HỌC CÔNG NGHỆ (UET)
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[9px] font-sans text-slate-500 font-semibold tracking-wide">
+                          HỌC BẠ ĐIỆN TỬ - KỸ NĂNG SỐ
+                        </p>
+                        <p className="text-[9px] font-sans text-slate-400">
+                          Mã HS: SV_TRANDUYANH
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Watermark background logo */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+                      <FileText className="w-96 h-96 stroke-[0.5]" />
+                    </div>
+
+                    {/* PDF Main Title */}
+                    <div className="text-center mb-8 space-y-1">
+                      <h2 className="text-lg font-bold text-slate-900 uppercase tracking-tight font-sans">
+                        BÀI TẬP BÁO CÁO THỰC HÀNH KHÓA HỌC
+                      </h2>
+                      <p className="text-xs italic text-slate-500">
+                        Tệp minh chứng đính kèm thực tiễn cá nhân
+                      </p>
+                    </div>
+
+                    {/* Metadata table layout */}
+                    <div className="bg-slate-50 p-4 border rounded-lg mb-8 font-sans text-xs grid grid-cols-2 gap-y-3 gap-x-6 text-slate-700">
+                      <div>
+                        <span className="font-semibold text-slate-500 block">HỌC VIÊN CÁ NHÂN</span>
+                        <span className="font-bold text-slate-800 text-sm">Trần Duy Anh</span>
+                      </div>
+                      <div>
+                        <span className="font-semibold text-slate-500 block">TIÊU ĐỀ BÀI TẬP</span>
+                        <span className="font-bold text-slate-800">{previewPdfInfo.project.exerciseTitle}</span>
+                      </div>
+                      <div className="col-span-2 border-t pt-2 mt-1">
+                        <span className="font-semibold text-slate-500 block">TÊN CHUYÊN ĐỀ HỌC PHẦN</span>
+                        <span className="font-bold text-slate-800">{previewPdfInfo.project.lessonName}</span>
+                      </div>
+                    </div>
+
+                    {/* Content section */}
+                    <div className="space-y-4 text-xs font-sans text-slate-800 text-justify">
+                      <div className="space-y-1.5">
+                        <h4 className="font-bold text-slate-900 uppercase text-xs flex items-center gap-1.5 text-teal-800">
+                          <Target className="w-3.5 h-3.5" />
+                          <span>I. Mục tiêu học thuật & Vai trò</span>
+                        </h4>
+                        <p className="leading-relaxed text-slate-600 ml-1">
+                          {previewPdfInfo.project.objective}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1.5 pt-2">
+                        <h4 className="font-bold text-slate-900 uppercase text-xs flex items-center gap-1.5 text-teal-800">
+                          <Layers className="w-3.5 h-3.5" />
+                          <span>II. Tiến trình học tập & Ứng dụng AI</span>
+                        </h4>
+                        <p className="leading-relaxed text-slate-600 ml-1">
+                          {previewPdfInfo.project.processSummary}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1.5 pt-2">
+                        <h4 className="font-bold text-slate-900 uppercase text-xs flex items-center gap-1.5 text-teal-800">
+                          <CheckCircle className="w-3.5 h-3.5" />
+                          <span>III. Kết quả & Đúc kết thực tế</span>
+                        </h4>
+                        <p className="leading-relaxed text-slate-600 ml-1 block bg-teal-500/5 p-3 border border-teal-500/10 rounded-lg italic">
+                          "{previewPdfInfo.project.result}"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PDF Signatures / Official block */}
+                  <div className="border-t border-slate-200 pt-6 mt-10 font-sans text-[10px] text-slate-500 flex justify-between items-center bg-white">
+                    <div>
+                      <p className="font-semibold text-slate-600 uppercase">HỆ THỐNG XÁC THỰC</p>
+                      <p className="flex items-center gap-1 text-emerald-600 font-bold mt-0.5">
+                        <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                        <span>XÁC THỰC HOÀN THÀNH CHẤT LƯỢNG (100%)</span>
+                      </p>
+                    </div>
+                    <div className="text-right space-y-1">
+                      <p className="italic">Hà Nội, Ngày 7 tháng 6 năm 2026</p>
+                      <div className="h-10 flex items-center justify-end pr-4 text-teal-700/60 font-serif font-bold italic tracking-wide">
+                        Trần Duy Anh
+                      </div>
+                      <p className="text-[8px] uppercase font-bold text-slate-400">HỌC VIÊN CHỮ KÝ SỐ</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            {/* Modal footer download hint bar */}
+            <div className="bg-white dark:bg-slate-900 px-6 py-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 text-teal-600" />
+                <span>Trình xem tệp tích hợp khắc phục mọi vấn đề chặn xem PDF của trình duyệt.</span>
+              </span>
+              <a 
+                href={previewPdfInfo.url}
+                download={previewPdfInfo.name}
+                className="text-teal-600 dark:text-teal-400 hover:underline font-bold"
+              >
+                Tải trực tiếp tệp PDF đóng dấu chất lượng cao
+              </a>
+            </div>
+
+          </div>
+        </div>
       )}
 
     </div>
