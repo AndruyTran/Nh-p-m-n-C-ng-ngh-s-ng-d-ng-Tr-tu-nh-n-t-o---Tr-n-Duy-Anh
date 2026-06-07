@@ -63,6 +63,12 @@ export default function App() {
 
   // Load published data from server on mount
   useEffect(() => {
+    if (isVercel) {
+      setPortfolio(GET_INITIAL_PORTFOLIO());
+      setIsLoading(false);
+      setIsPreview(true);
+      return;
+    }
     const fetchPublishedPortfolio = async () => {
       try {
         const response = await fetch("/api/portfolio");
