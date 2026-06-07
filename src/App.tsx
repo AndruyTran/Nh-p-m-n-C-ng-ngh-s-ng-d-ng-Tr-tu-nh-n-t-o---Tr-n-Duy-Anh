@@ -49,15 +49,20 @@ export default function App() {
   const [draftConfig, setDraftConfig] = useState<PortfolioConfig | null>(null);
 
   // Check if running on Vercel deployment hostname
-  const isVercel = typeof window !== "undefined" && window.location.hostname.includes("vercel.app");
+  const isVercel = typeof window !== "undefined" && (
+    window.location.hostname.includes("vercel.app") ||
+    window.location.hostname.includes("now.sh") ||
+    window.location.hostname.includes("vercel")
+  );
 
-  // On Vercel, it should be view-only (pristine reading view for grading) by default!
+  // Users can explicitly set '?view=true' to share a pristine read-only view of their portfolio
   const isViewOnly = typeof window !== "undefined" 
-    ? (new URLSearchParams(window.location.search).get("view") === "true" || isVercel)
+    ? new URLSearchParams(window.location.search).get("view") === "true"
     : false;
 
   const [activeTab, setActiveTab] = useState<"about" | "projects" | "reflection">("about");
-  const [isPreview, setIsPreview] = useState<boolean>(isViewOnly);
+  // Default to Preview mode on Vercel or when viewOnly is active so the visitor gets a polished initial experience
+  const [isPreview, setIsPreview] = useState<boolean>(isViewOnly || isVercel);
   const [isCopied, setIsCopied] = useState(false);
   const [isUrlCopied, setIsUrlCopied] = useState(false);
 
@@ -70,8 +75,24 @@ export default function App() {
       return;
     }
     const fetchPublishedPortfolio = async () => {
+      // Set a 2.5 second abort timeout in case the server connection is slow on mobile networks
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => {
+        controller.abort();
+      }, 2500);
+
       try {
-        const response = await fetch("/api/portfolio");
+        const response = await fetch("/api/portfolio", { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          throw new Error(`Server returned status ${response.status}`);
+        }
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Server response was not JSON template");
+        }
+
         const data = await response.json();
         
         // Get the localStorage draft if it exists safely
