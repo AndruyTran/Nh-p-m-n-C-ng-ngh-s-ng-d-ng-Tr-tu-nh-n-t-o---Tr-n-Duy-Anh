@@ -198,9 +198,56 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
       alert(`Đang tải mẫu tệp: ${attach.name}`);
     } else if (attach.url.startsWith("data:")) {
       e.preventDefault();
+      try {
+        // Convert base64 data URI to Blob URL to bypass browser security sandbox restrictions on Vercel/mobile
+        const parts = attach.url.split(',');
+        const mimeString = parts[0].split(':')[1].split(';')[0];
+        const byteString = atob(parts[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        
+        if (attach.type === "pdf") {
+          // Open PDF in a new tab so it is modern and viewable on mobile/Vercel
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+        } else {
+          // For other documents/files, download them cleanly
+          link.download = attach.name;
+        }
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Revoke the object URL after a delay to free up memory
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+        }, 12000);
+      } catch (err) {
+        console.error("Lỗi khi mở file base64:", err);
+        // Resubmission fallback
+        const link = document.createElement("a");
+        link.href = attach.url;
+        link.download = attach.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } else {
+      // For standard URLs, make sure it opens in a new tab so they don't leave the portfolio app
+      e.preventDefault();
       const link = document.createElement("a");
       link.href = attach.url;
-      link.download = attach.name;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
