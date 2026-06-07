@@ -39,7 +39,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 1.pdf",
-          "url": "/documents/Bai1.pdf",
+          "url": "https://drive.google.com/file/d/1bFD3XCUXZvyfxrXTZLJ8nO7U4dw_cuYD/view?usp=sharing",
           "type": "pdf"
         }
       ],
@@ -66,7 +66,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 2.pdf",
-          "url": "/documents/Bai2.pdf",
+          "url": "https://drive.google.com/file/d/1WHvYNMQqrmgrLrL1XzYyzTCz8saD999A/view?usp=sharing",
           "type": "pdf"
         }
       ],
@@ -130,7 +130,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 3.pdf",
-          "url": "/documents/Bai3.pdf",
+          "url": "https://drive.google.com/file/d/1JHU-D6PSoJbZ-dRkgWGVfwLCfr4hNpbZ/view?usp=sharing",
           "type": "pdf"
         }
       ],
@@ -155,7 +155,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 4.pdf",
-          "url": "/documents/Bai4.pdf",
+          "url": "https://drive.google.com/file/d/1_Mj3sCBTKXC9dG-T2YZddXdSVtK1CRmW/view?usp=sharing",
           "type": "pdf"
         }
       ],
@@ -183,7 +183,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 5.pdf",
-          "url": "/documents/Bai5.pdf",
+          "url": "https://drive.google.com/file/d/1XRRet3edPIvkkFwxiPJinU3CBWw5OfQ6/view?usp=sharing",
           "type": "pdf"
         }
       ],
@@ -222,7 +222,7 @@ export const DEFAULT_PORTFOLIO: PortfolioConfig = {
       "attachments": [
         {
           "name": "Bài 6.pdf",
-          "url": "/documents/Bai6.pdf",
+          "url": "https://drive.google.com/file/d/1tqo4cR4q4mTws2zOmXstl2ElVTFjCbnI/view?usp=sharing",
           "type": "pdf"
         }
       ],
