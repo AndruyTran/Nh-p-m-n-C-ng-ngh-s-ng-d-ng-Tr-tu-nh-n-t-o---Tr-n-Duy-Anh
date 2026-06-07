@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { PortfolioConfig } from "./types";
 import { DEFAULT_PORTFOLIO } from "./data/defaultPortfolio";
+import PORTFOLIO_DATA_JSON from "../portfolio-data.json";
 import SidebarEditor from "./components/SidebarEditor";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
@@ -32,14 +33,28 @@ const isValidPortfolio = (data: any): data is PortfolioConfig => {
   );
 };
 
+// Helper to determine initial portfolio data, prioritizing any customized JSON from AI Studio saved on disk
+const GET_INITIAL_PORTFOLIO = (): PortfolioConfig => {
+  if (PORTFOLIO_DATA_JSON && isValidPortfolio(PORTFOLIO_DATA_JSON)) {
+    return PORTFOLIO_DATA_JSON as PortfolioConfig;
+  }
+  return DEFAULT_PORTFOLIO;
+};
+
 export default function App() {
-  const [portfolio, setPortfolio] = useState<PortfolioConfig>(DEFAULT_PORTFOLIO);
+  const [portfolio, setPortfolio] = useState<PortfolioConfig>(GET_INITIAL_PORTFOLIO());
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [publishStatus, setPublishStatus] = useState<"idle" | "publishing" | "success" | "error">("idle");
   const [publishUrl, setPublishUrl] = useState<string>("");
   const [draftConfig, setDraftConfig] = useState<PortfolioConfig | null>(null);
 
-  const isViewOnly = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("view") === "true" : false;
+  // Check if running on Vercel deployment hostname
+  const isVercel = typeof window !== "undefined" && window.location.hostname.includes("vercel.app");
+
+  // On Vercel, it should be view-only (pristine reading view for grading) by default!
+  const isViewOnly = typeof window !== "undefined" 
+    ? (new URLSearchParams(window.location.search).get("view") === "true" || isVercel)
+    : false;
 
   const [activeTab, setActiveTab] = useState<"about" | "projects" | "reflection">("about");
   const [isPreview, setIsPreview] = useState<boolean>(isViewOnly);
@@ -80,7 +95,7 @@ export default function App() {
           } else if (savedData) {
             setPortfolio(savedData);
           } else {
-            setPortfolio(DEFAULT_PORTFOLIO);
+            setPortfolio(GET_INITIAL_PORTFOLIO());
           }
           setIsPreview(true);
         } else {
@@ -95,7 +110,7 @@ export default function App() {
           } else if (savedData) {
             setPortfolio(savedData);
           } else {
-            setPortfolio(DEFAULT_PORTFOLIO);
+            setPortfolio(GET_INITIAL_PORTFOLIO());
           }
           setIsPreview(false);
         }
@@ -111,13 +126,13 @@ export default function App() {
             if (isValidPortfolio(parsed)) {
               setPortfolio(parsed);
             } else {
-              setPortfolio(DEFAULT_PORTFOLIO);
+              setPortfolio(GET_INITIAL_PORTFOLIO());
             }
           } catch (e) {
-            setPortfolio(DEFAULT_PORTFOLIO);
+            setPortfolio(GET_INITIAL_PORTFOLIO());
           }
         } else {
-          setPortfolio(DEFAULT_PORTFOLIO);
+          setPortfolio(GET_INITIAL_PORTFOLIO());
         }
       } finally {
         setIsLoading(false);
