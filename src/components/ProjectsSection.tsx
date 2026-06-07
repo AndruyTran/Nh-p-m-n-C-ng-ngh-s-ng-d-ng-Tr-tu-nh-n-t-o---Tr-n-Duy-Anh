@@ -196,15 +196,6 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
     if (attach.url === "#") {
       e.preventDefault();
       alert(`Đang tải mẫu tệp: ${attach.name}`);
-    } else if (attach.type === "pdf" || attach.name.toLowerCase().endsWith(".pdf")) {
-      e.preventDefault();
-      // Download the original static PDF file directly!
-      const link = document.createElement("a");
-      link.href = attach.url;
-      link.download = attach.name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     } else if (attach.url.startsWith("data:")) {
       e.preventDefault();
       try {
@@ -242,6 +233,25 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
         link.click();
         document.body.removeChild(link);
       }
+    } else if (attach.url.startsWith("http://") || attach.url.startsWith("https://")) {
+      e.preventDefault();
+      // Open remote links (including Google Drive, docs, etc.) in a new tab
+      const link = document.createElement("a");
+      link.href = attach.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else if (attach.type === "pdf" || attach.name.toLowerCase().endsWith(".pdf")) {
+      e.preventDefault();
+      // Download the original static PDF file directly!
+      const link = document.createElement("a");
+      link.href = attach.url;
+      link.download = attach.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else {
       // For standard URLs, make sure it opens in a new tab so they don't leave the portfolio app
       e.preventDefault();
@@ -531,47 +541,105 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
                   </div>
 
                   {!isPreview && (
-                    <div className="space-y-1.5 pt-1.5 border-t border-slate-200/50 dark:border-slate-800">
-                      <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Đường dẫn URL liên kết:</label>
-                      <input
-                        type="text"
-                        value={attach.url}
-                        onChange={(e) => handleUpdateAttach(aIdx, "url", e.target.value)}
-                        className="w-full text-[10px] font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5 truncate text-slate-700 dark:text-slate-300"
-                        placeholder="Liên kết URL..."
-                      />
-
-                      {/* File Upload drag-and-drop dropzone */}
-                      <div
-                        onDragOver={(e) => handleDragOver(e, aIdx)}
-                        onDragLeave={handleDragLeave}
-                        onDrop={(e) => handleDrop(e, aIdx)}
-                        onClick={() => document.getElementById(`file-select-input-${aIdx}`)?.click()}
-                        className={`p-2.5 border-2 border-dashed rounded-xl text-center text-[10px] cursor-pointer transition-all ${
-                          dragOverIdx === aIdx
-                            ? "border-teal-500 bg-teal-500/5 text-teal-600 dark:text-teal-400 font-medium scale-[1.01]"
-                            : attach.url.startsWith("data:")
-                            ? "border-emerald-300 dark:border-emerald-850 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 hover:border-emerald-400"
-                            : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-100/30 dark:bg-slate-900/30 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                        }`}
-                      >
-                        <input
-                          type="file"
-                          id={`file-select-input-${aIdx}`}
-                          className="hidden"
-                          onChange={(e) => handleFileChange(e, aIdx)}
-                        />
-                        <div className="flex flex-col items-center justify-center gap-1">
-                          <Upload className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-                          {attach.url.startsWith("data:") ? (
-                            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                              ✓ Đã đắp file tùy chọn của bạn
-                            </span>
-                          ) : (
-                            <span className="text-[9px]">Kéo thả file tùy ý hoặc Click để tải lên</span>
-                          )}
-                        </div>
+                    <div className="space-y-2 pt-1.5 border-t border-slate-200/50 dark:border-slate-800">
+                      {/* Alternate input mode selector for Google Drive Links */}
+                      <div className="flex bg-slate-100 dark:bg-slate-900/80 p-0.5 rounded-lg text-[10px] font-bold mb-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (attach.url.startsWith("http")) {
+                              handleUpdateAttach(aIdx, "url", "#");
+                            }
+                          }}
+                          className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
+                            !attach.url.startsWith("http")
+                              ? "bg-white dark:bg-slate-800 shadow-xs text-teal-600 dark:text-teal-400"
+                              : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                          }`}
+                        >
+                          Tải tệp tin lên
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (!attach.url.startsWith("http")) {
+                              handleUpdateAttach(aIdx, "url", "https://drive.google.com/");
+                              handleUpdateAttach(aIdx, "type", "link");
+                            }
+                          }}
+                          className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
+                            attach.url.startsWith("http")
+                              ? "bg-white dark:bg-slate-800 shadow-xs text-teal-600 dark:text-teal-400"
+                              : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                          }`}
+                        >
+                          Dùng Link Drive
+                        </button>
                       </div>
+
+                      {attach.url.startsWith("http") ? (
+                        <div className="space-y-1.5 p-2.5 bg-teal-500/5 dark:bg-teal-500/10 rounded-xl border border-teal-500/10 dark:border-teal-500/20">
+                          <label className="text-[9px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">Đường dẫn Google Drive / Link Web:</label>
+                          <input
+                            type="text"
+                            value={attach.url}
+                            onChange={(e) => {
+                              handleUpdateAttach(aIdx, "url", e.target.value);
+                              if (e.target.value.includes("drive.google.com") || e.target.value.includes("docs.google.com")) {
+                                handleUpdateAttach(aIdx, "type", "link");
+                              }
+                            }}
+                            className="w-full text-[10px] font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5 text-slate-700 dark:text-slate-300 focus:border-teal-500 focus:outline-hidden"
+                            placeholder="Dán link Google Drive chia sẻ vào đây..."
+                          />
+                          <p className="text-[8px] text-slate-400 dark:text-slate-500 leading-normal">
+                            💡 Hãy nhớ cài đặt liên kết Google Drive của bạn ở chế độ <strong className="text-teal-600 dark:text-teal-400 font-semibold">“Bất kỳ ai có liên kết đều có thể xem” (Anyone with link can view)</strong> để mọi người/thầy cô có thể truy cập thành công nhé!
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="space-y-1.5">
+                          <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Đường dẫn URL liên kết:</label>
+                          <input
+                            type="text"
+                            value={attach.url}
+                            onChange={(e) => handleUpdateAttach(aIdx, "url", e.target.value)}
+                            className="w-full text-[10px] font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5 truncate text-slate-700 dark:text-slate-300 focus:border-teal-500 focus:outline-hidden"
+                            placeholder="Liên kết URL..."
+                          />
+
+                          {/* File Upload drag-and-drop dropzone */}
+                          <div
+                            onDragOver={(e) => handleDragOver(e, aIdx)}
+                            onDragLeave={handleDragLeave}
+                            onDrop={(e) => handleDrop(e, aIdx)}
+                            onClick={() => document.getElementById(`file-select-input-${aIdx}`)?.click()}
+                            className={`p-2.5 border-2 border-dashed rounded-xl text-center text-[10px] cursor-pointer transition-all ${
+                              dragOverIdx === aIdx
+                                ? "border-teal-500 bg-teal-500/5 text-teal-600 dark:text-teal-400 font-medium scale-[1.01]"
+                                : attach.url.startsWith("data:")
+                                ? "border-emerald-300 dark:border-emerald-850 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 hover:border-emerald-400"
+                                : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-100/30 dark:bg-slate-900/30 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                            }`}
+                          >
+                            <input
+                              type="file"
+                              id={`file-select-input-${aIdx}`}
+                              className="hidden"
+                              onChange={(e) => handleFileChange(e, aIdx)}
+                            />
+                            <div className="flex flex-col items-center justify-center gap-1">
+                              <Upload className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                              {attach.url.startsWith("data:") ? (
+                                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                                  ✓ Đã đắp file tùy chọn của bạn
+                                </span>
+                              ) : (
+                                <span className="text-[9px]">Kéo thả file tùy ý hoặc Click để tải lên</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
