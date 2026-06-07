@@ -136,8 +136,8 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
   };
 
   const processFile = (file: File, index: number) => {
-    if (file.size > 1.5 * 1024 * 1024) {
-      alert("Kích thước tệp lớn hơn 1.5MB! Để đảm bảo trang web hoạt động mượt mà và không gặp lỗi máy chủ khi xuất bản trực tuyến, vui lòng chọn file nhẹ hơn hoặc tải tệp đó lên Google Drive / OneDrive rồi dán đường dẫn link chia sẻ trực tiếp nhé!");
+    if (file.size > 3 * 1024 * 1024) {
+      alert("Kích thước tệp lớn hơn 3MB! Để đảm bảo trang web hoạt động mượt mà và không gặp lỗi máy chủ khi xuất bản trực tuyến, vui lòng chọn file nhẹ hơn hoặc tải tệp đó lên Google Drive / OneDrive rồi dán đường dẫn link chia sẻ trực tiếp nhé!");
       return;
     }
     const reader = new FileReader();

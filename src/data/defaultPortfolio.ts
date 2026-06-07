@@ -8,17 +8,17 @@ import { PortfolioConfig } from "../types";
 export const DEFAULT_PORTFOLIO: PortfolioConfig = {
   theme: "minimal",
   personalInfo: {
-    fullName: "Nguyễn Duy Anh",
+    fullName: "Trần Duy Anh",
     avatarUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400&h=400",
-    studentId: "HE170321",
+    studentId: "MSV 25022077",
     major: "Công nghệ kỹ thuật Điện tử - Viễn Thông",
-    school: "Đại học FPT",
-    class: "SE1703",
-    email: "duyanhdemon@gmail.com",
+    school: "Đại học Công Nghệ - Đại học Quốc gia Hà Nội",
+    class: "VNU1001_E252007",
+    email: "25022077@vnu.edu.vn",
     githubUrl: "https://github.com/duyanh",
     facebookUrl: "https://facebook.com/duyanh.demon",
     personalGoals: "Làm chủ kiến thức cốt lõi về lý thuyết mạch, xử lý tín hiệu và thành thạo các kỹ năng lập trình hệ thống phần cứng. Chủ động áp dụng các kiến thức này vào thực tế bằng việc nghiên cứu và phát triển các hệ thống vi điều khiển, tối ưu hóa phần cứng và làm việc với các giao thức mạng. Đây chính là bệ phóng vững chắc giúp em hiện thực hóa định hướng nghề nghiệp trở thành một Kỹ sư Hệ thống Nhúng và IoT trong tương lai, có đủ năng lực thiết kế và triển khai các giải pháp công nghệ thông minh, mang lại giá trị thiết thực cho cộng đồng.",
-    interests: ["Lập trình ứng dụng", "Thiết kế đồ họa", "Nghiên cứu Prompt Engineering", "Chụp ảnh nghệ thuật"],
+    interests: ["Nấu ăn", "Nghiên cứu prompt AI", "Thể thao"],
     portfolioObjective: "Mục tiêu chính của dự án cá nhân này là xây dựng một Portfolio Kỹ thuật số (Digital Portfolio) hoàn chỉnh bằng cách tích hợp đồng bộ các bài tập nhỏ xuyên suốt các chương học của môn \"Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo\". Thông qua dự án, em hướng tới việc tổng hợp và chứng minh một cách hệ thống các kiến thức, kỹ năng đã được đào tạo. Đồng thời, sản phẩm này không chỉ dừng lại ở vai trò một bài tập điều kiện, mà sẽ trở thành một công cụ thực tế giúp em giới thiệu, quảng bá năng lực cá nhân một cách chuyên nghiệp trong tương lai."
   },
   projects: [

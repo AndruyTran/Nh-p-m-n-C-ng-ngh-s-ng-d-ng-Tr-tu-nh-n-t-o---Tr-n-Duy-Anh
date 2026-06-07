@@ -2,19 +2,19 @@
   "theme": "minimal",
   "personalInfo": {
     "fullName": "Trần Duy Anh",
-    "avatarUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400",
-    "studentId": "25022077",
+    "avatarUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400&h=400",
+    "studentId": "MSV 25022077",
     "major": "Công nghệ kỹ thuật Điện tử - Viễn Thông",
     "school": "Đại học Công Nghệ - Đại học Quốc gia Hà Nội",
-    "class": "K70E-EC1",
+    "class": "VNU1001_E252007",
     "email": "25022077@vnu.edu.vn",
     "githubUrl": "https://github.com/duyanh",
     "facebookUrl": "https://facebook.com/duyanh.demon",
     "personalGoals": "Làm chủ kiến thức cốt lõi về lý thuyết mạch, xử lý tín hiệu và thành thạo các kỹ năng lập trình hệ thống phần cứng. Chủ động áp dụng các kiến thức này vào thực tế bằng việc nghiên cứu và phát triển các hệ thống vi điều khiển, tối ưu hóa phần cứng và làm việc với các giao thức mạng. Đây chính là bệ phóng vững chắc giúp em hiện thực hóa định hướng nghề nghiệp trở thành một Kỹ sư Hệ thống Nhúng và IoT trong tương lai, có đủ năng lực thiết kế và triển khai các giải pháp công nghệ thông minh, mang lại giá trị thiết thực cho cộng đồng.",
     "interests": [
-      "Nghiên cứu Prompt Engineering",
-      "Chụp ảnh nghệ thuật",
-      "Nấu ăn"
+      "Nấu ăn",
+      "Nghiên cứu prompt AI",
+      "Thể thao"
     ],
     "portfolioObjective": "Mục tiêu chính của dự án cá nhân này là xây dựng một Portfolio Kỹ thuật số (Digital Portfolio) hoàn chỉnh bằng cách tích hợp đồng bộ các bài tập nhỏ xuyên suốt các chương học của môn \"Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo\". Thông qua dự án, em hướng tới việc tổng hợp và chứng minh một cách hệ thống các kiến thức, kỹ năng đã được đào tạo. Đồng thời, sản phẩm này không chỉ dừng lại ở vai trò một bài tập điều kiện, mà sẽ trở thành một công cụ thực tế giúp em giới thiệu, quảng bá năng lực cá nhân một cách chuyên nghiệp trong tương lai."
   },
@@ -22,7 +22,7 @@
     {
       "id": "bai-1",
       "lessonName": "Bài 1.4: Thao tác cơ bản với tệp tin và thư mục",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 1: Sắp xếp & Quản lý Thư mục Khoa học",
       "objective": "Thiết lập cấu trúc lưu trữ học tập thông minh, nhất quán theo nguyên tắc khoa học dữ liệu nhằm giảm 80% thời gian tìm kiếm tài liệu thông tin.",
       "processSummary": "Tiến hành phân tích sơ đồ môn học kỳ 1, nhóm các tệp tin theo mã môn, mức độ ưu tiên và định dạng tệp. Áp dụng quy tắc đặt tên tệp nhất quán quốc tế [Năm_HọcKỳ]_[MãMôn]_[TênSảnPhẩm]_[PhiênBản].",
       "result": "Đạt mốc 100% tài liệu được phân tách hoàn hảo, sơ đồ hình cây logic cho 3 môn học trọng tâm học kỳ 1, tiết kiệm đáng kể thời gian tra cứu và thiết lập thói quen làm việc số chuyên nghiệp.",
@@ -49,7 +49,7 @@
     {
       "id": "bai-2",
       "lessonName": "Bài 2.4: Tìm kiếm và đánh giá thông tin học thuật",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 2: Nghiên cứu Chiến lược Tìm kiếm & Trích dẫn",
       "objective": "Khai thác tối đa các toán tử tìm kiếm nâng cao để thu thập và bộ lọc nguồn tin học thuật đáng tin cậy về tác động của Generative AI trong ngành giáo dục.",
       "processSummary": "Sử dụng Google Scholar kết hợp 4 toán tử nâng cao để truy xuất 5 tài liệu nghiên cứu quốc tế có chỉ số trích dẫn cao, phân tích định lượng bằng bảng đánh giá nguồn tin chuẩn Craap.",
       "result": "Chắt lọc thành công 3 nguồn tham khảo chất lượng cao đạt điểm kiểm định CRAAP từ 8.5/10 trở lên, hoàn thành bản trích dẫn định dạng APA quốc tế chuẩn mực phục vụ viết báo cáo học thuật.",
@@ -113,7 +113,7 @@
     {
       "id": "bai-3",
       "lessonName": "Bài 3.4: Viết Prompt hiệu quả cho các tác vụ học tập",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 3: So sánh Cơ chế Hoạt động & Kỹ thuật Prompt Engineering",
       "objective": "Tối ưu hóa khả năng cộng tác với Trí tuệ nhân tạo thông qua việc thiết lập các cấu trúc Prompt tối ưu theo khung CO-STAR.",
       "processSummary": "Kiểm thí so sánh 2 kịch bản prompt: một prompt chưa tối ưu (sơ sài) và một prompt đã tối ưu (áp dụng Prompt Engineering nâng cao), làm rõ sự khác biệt vượt trội về phản hồi của mô hình ngôn ngữ lớn LLM.",
       "result": "Xây dựng được Prompt kỹ thuật CO-STAR chuẩn chỉnh giúp cải thiện 95% độ tập trung của câu trả lời, trả ra mã nguồn giải thuật C sạch kèm chú dẫn sư phạm dễ tiếp thu.",
@@ -143,7 +143,7 @@
     {
       "id": "bai-4",
       "lessonName": "Bài 4.4: Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 4: Tổ chức Công việc với Kanban & Trực quan hóa Tiến độ",
       "objective": "Thiết lập môi trường làm việc số tối ưu hiệu suất phối hợp nhóm từ xa, đảm bảo 100% thời hạn được bàn giao đúng hạn.",
       "processSummary": "Sử dụng công cụ quản lý dự án trực quan (Notion Kanban, Trello, hoặc GitProject) để phân rã 8 đầu việc trọng tâm xây dựng Portfolio này, thực hiện kiểm soát chéo và cập nhật trạng thái làm việc theo tuần.",
       "result": "Hoàn thành phân rã 8 đầu việc cốt lõi, thiết lập bảng điều khiển Notion Kanban nhóm trực quan giúp gia tăng hiệu năng phối hợp từ xa và loại bỏ hoàn toàn tình trạng trễ hạn bàn giao.",
@@ -176,7 +176,7 @@
     {
       "id": "bai-5",
       "lessonName": "Bài 5.4: Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 5: Khám phá Kỹ năng Tạo ảnh & Viết Kịch bản với AI",
       "objective": "Sử dụng các hệ thống AI tạo sinh mỹ thuật và văn bản tiên tiến để phát triển bộ nhận diện thương hiệu cá nhân sáng tạo và nội dung chuyên trang.",
       "processSummary": "Sử dụng mô hình Gemini tạo ảnh chất lượng cao để sinh ảnh đại diện chân dung nghệ thuật, đồng thời kết hợp ChatGPT để phác thảo bài giới thiệu mở đầu đầy thu hút.",
       "result": "Sản xuất thành công bộ nhận diện thương hiệu cá nhân sắc nét gồm 1 tác phẩm mỹ thuật số Digital Art chất lượng cao và kịch bản video giới thiệu học tập được văn hóa chuyên nghiệp.",
@@ -215,7 +215,7 @@
     {
       "id": "bai-6",
       "lessonName": "Bài 6.4: Sử dụng AI có trách nhiệm trong học tập và nghiên cứu",
-      "exerciseTitle": "",
+      "exerciseTitle": "Bài tập 6: Thiết lập Khung Nguyên tắc Đạo đức AI Cá nhân",
       "objective": "Tuyên bố bộ quy tắc danh dự lập thân học tập, phòng tránh rủi ro xâm hại đạo đức, đảm bảo liêm chính công nghệ số quốc tế.",
       "processSummary": "Phân tích các thách thức đạo đức của AI (đạo văn, thiên kiến dữ liệu, mất năng lực tư duy độc lập). Thiết lập bộ 4 nguyên tắc sử dụng AI có kiểm duyệt chặt chẽ.",
       "result": "Thông qua bộ 4 quy tắc vàng Đạo đức AI cá nhân và bản Tuyên bố Liêm chính Học thuật danh dự, xây dựng phương án kiểm chứng chéo chặt chẽ chống hư cấu dữ liệu.",
