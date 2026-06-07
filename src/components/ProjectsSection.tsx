@@ -13,111 +13,6 @@ import {
 import { ProjectItem, PortfolioConfig, TableRow } from "../types";
 import AIPanel from "./AIPanel";
 
-// Dynamic Client-side PDF generation utilities to prevent Vercel 404 & bypass "Failed to load PDF document" browser sandbox blocks
-function removeVietnameseTones(str: string): string {
-  if (!str) return "";
-  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-  str = str.replace(/đ/g, "d");
-  str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-  str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
-  str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-  str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-  str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-  str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
-  str = str.replace(/Đ/g, "D");
-  
-  // Replace parenthesis to prevent PDF syntax Tj command breaking
-  str = str.replace(/\(/g, "[").replace(/\)/g, "]");
-  return str;
-}
-
-function generatePdfBlob(title: string, subtitle: string, studentName: string): Blob {
-  const bodyParts: string[] = [];
-  let offset = 0;
-  const xrefs: number[] = [];
-  const encoder = new TextEncoder();
-
-  function addPart(content: string) {
-    xrefs.push(offset);
-    bodyParts.push(content);
-    const bytes = encoder.encode(content);
-    offset += bytes.length;
-  }
-
-  // PDF Header setup
-  const header = "%PDF-1.4\n%abcde\n";
-  offset = encoder.encode(header).length;
-
-  // Object 1: Catalog
-  const obj1 = "1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n";
-  addPart(obj1);
-
-  // Object 2: Pages tree
-  const obj2 = "2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n";
-  addPart(obj2);
-
-  // Object 3: Page object
-  const obj3 = "3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n";
-  addPart(obj3);
-
-  // Object 4: Font object
-  const obj4 = "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n";
-  addPart(obj4);
-
-  // Object 5: Content stream (Clean compatible Helvetica typography)
-  const streamContent = `BT
-/F1 14 Tf
-50 780 Td
-(${title}) Tj
-0 -40 Td
-/F1 11 Tf
-(${subtitle}) Tj
-0 -30 Td
-(Hoc vien: ${studentName}) Tj
-0 -50 Td
-/F1 10 Tf
-(Day la bao cao ket qua hoc tap va thuc hanh ky nang so.) Tj
-0 -20 Td
-(Tep duoc luu tru an toan va phuc vu lam minh chung trong hoc ba dien tu.) Tj
-0 -20 Td
-(He thong da xac thuc chu ky so hoc vien thanh cong.) Tj
-0 -50 Td
-/F1 9 Tf
-(Trang: 1 / 1 - Truong Dai hoc Cong nghe) Tj
-ET
-`;
-  const streamBytes = encoder.encode(streamContent);
-  const streamLength = streamBytes.length;
-  const obj5 = `5 0 obj\n<< /Length ${streamLength} >>\nstream\n${streamContent}endstream\nendobj\n`;
-  addPart(obj5);
-
-  // Build xref table
-  let xref = "xref\n0 6\n0000000000 65535 f \n";
-  for (const xr of xrefs) {
-    const padded = xr.toString().padStart(10, '0');
-    xref += `${padded} 00000 n \n`;
-  }
-
-  const trailer = `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${offset}\n%%EOF\n`;
-
-  const fullParts = [header, ...bodyParts, xref, trailer];
-  const totalLength = fullParts.reduce((sum, p) => sum + encoder.encode(p).length, 0);
-  const resultBytes = new Uint8Array(totalLength);
-  let currentOffset = 0;
-  for (const p of fullParts) {
-    const pBytes = encoder.encode(p);
-    resultBytes.set(pBytes, currentOffset);
-    currentOffset += pBytes.length;
-  }
-
-  return new Blob([resultBytes], { type: "application/pdf" });
-}
-
 interface ProjectsSectionProps {
   portfolio: PortfolioConfig;
   onChange: (updated: PortfolioConfig) => void;
@@ -303,34 +198,13 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
       alert(`Đang tải mẫu tệp: ${attach.name}`);
     } else if (attach.type === "pdf" || attach.name.toLowerCase().endsWith(".pdf")) {
       e.preventDefault();
-      try {
-        // Sinh động PDF chất lượng cao, tuyệt đối khớp thông tin thực tế tại Client-side
-        const studentName = portfolio.personalInfo.fullName || "Tran Duy Anh";
-        const lessonName = activeProject.lessonName || "Chuyen de";
-        const exerciseTitle = activeProject.exerciseTitle || "Bai tap thuc hanh";
-        
-        // Convert to compatible non-accented text for standardized PDF embedding
-        const cleanStudentName = removeVietnameseTones(studentName);
-        const cleanLessonName = removeVietnameseTones(lessonName).toUpperCase();
-        const cleanExerciseTitle = removeVietnameseTones(exerciseTitle);
-        
-        const blob = generatePdfBlob(cleanLessonName, cleanExerciseTitle, cleanStudentName);
-        const blobUrl = URL.createObjectURL(blob);
-        
-        const link = document.createElement("a");
-        link.href = blobUrl;
-        link.download = attach.name; // Tải xuống trực tiếp thiết bị của học sinh
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        setTimeout(() => {
-          URL.revokeObjectURL(blobUrl);
-        }, 5000);
-      } catch (err) {
-        console.error("Lỗi sinh tệp PDF minh chứng:", err);
-        alert("Có lỗi xảy ra khi tạo tệp PDF báo cáo.");
-      }
+      // Download the original static PDF file directly!
+      const link = document.createElement("a");
+      link.href = attach.url;
+      link.download = attach.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else if (attach.url.startsWith("data:")) {
       e.preventDefault();
       try {
@@ -728,8 +602,6 @@ export default function ProjectsSection({ portfolio, onChange, isPreview }: Proj
           }}
         />
       )}
-
-
 
     </div>
   );
