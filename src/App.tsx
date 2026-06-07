@@ -55,9 +55,9 @@ export default function App() {
     window.location.hostname.includes("vercel")
   );
 
-  // Users can explicitly set '?view=true' to share a pristine read-only view of their portfolio
+  // Users can explicitly set '?view=true' to share a pristine read-only view of their portfolio, or force view-only on Vercel
   const isViewOnly = typeof window !== "undefined" 
-    ? new URLSearchParams(window.location.search).get("view") === "true"
+    ? (new URLSearchParams(window.location.search).get("view") === "true" || isVercel)
     : false;
 
   const [activeTab, setActiveTab] = useState<"about" | "projects" | "reflection">("about");
