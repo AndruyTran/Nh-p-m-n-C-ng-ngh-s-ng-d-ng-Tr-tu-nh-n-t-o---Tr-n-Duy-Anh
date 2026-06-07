@@ -256,7 +256,7 @@ export default function App() {
     <div className={`min-h-screen flex flex-col lg:flex-row ${themeVars.bg} ${themeVars.font} transition-colors duration-300`}>
       
       {/* 1. Controller Sidebar - Left column (Collapsible or hidden in pure preview if they choose, so they can see full width) */}
-      <div className={`shrink-0 z-30 transition-all duration-300 ${isPreview ? "w-0 lg:w-0 overflow-hidden border-none" : "w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800"}`}>
+      <div className={`shrink-0 z-30 transition-all duration-300 ${isPreview ? "hidden" : "w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800"}`}>
         <SidebarEditor
           portfolio={portfolio}
           onChange={setPortfolio}
@@ -269,7 +269,7 @@ export default function App() {
       </div>
 
       {/* 2. Main Content Canvas Frame */}
-      <div className="flex-1 flex flex-col overflow-y-auto max-h-screen">
+      <div className="flex-1 flex flex-col lg:overflow-y-auto lg:max-h-screen min-h-0">
         
         {/* Navigation Toolbar (Displays in all modes, looks like Google Sites publisher) */}
         <header className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-850 px-6 py-4 flex items-center justify-between sticky top-0 z-20 shadow-xs select-none">
