@@ -1,0 +1,343 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { PortfolioConfig } from "../types";
+
+export const DEFAULT_PORTFOLIO: PortfolioConfig = {
+  theme: "minimal",
+  personalInfo: {
+    fullName: "Nguyễn Duy Anh",
+    avatarUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400&h=400",
+    studentId: "HE170321",
+    major: "Công nghệ kỹ thuật Điện tử - Viễn Thông",
+    school: "Đại học FPT",
+    class: "SE1703",
+    email: "duyanhdemon@gmail.com",
+    githubUrl: "https://github.com/duyanh",
+    facebookUrl: "https://facebook.com/duyanh.demon",
+    personalGoals: "Làm chủ kiến thức cốt lõi về lý thuyết mạch, xử lý tín hiệu và thành thạo các kỹ năng lập trình hệ thống phần cứng. Chủ động áp dụng các kiến thức này vào thực tế bằng việc nghiên cứu và phát triển các hệ thống vi điều khiển, tối ưu hóa phần cứng và làm việc với các giao thức mạng. Đây chính là bệ phóng vững chắc giúp em hiện thực hóa định hướng nghề nghiệp trở thành một Kỹ sư Hệ thống Nhúng và IoT trong tương lai, có đủ năng lực thiết kế và triển khai các giải pháp công nghệ thông minh, mang lại giá trị thiết thực cho cộng đồng.",
+    interests: ["Lập trình ứng dụng", "Thiết kế đồ họa", "Nghiên cứu Prompt Engineering", "Chụp ảnh nghệ thuật"],
+    portfolioObjective: "Mục tiêu chính của dự án cá nhân này là xây dựng một Portfolio Kỹ thuật số (Digital Portfolio) hoàn chỉnh bằng cách tích hợp đồng bộ các bài tập nhỏ xuyên suốt các chương học của môn \"Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo\". Thông qua dự án, em hướng tới việc tổng hợp và chứng minh một cách hệ thống các kiến thức, kỹ năng đã được đào tạo. Đồng thời, sản phẩm này không chỉ dừng lại ở vai trò một bài tập điều kiện, mà sẽ trở thành một công cụ thực tế giúp em giới thiệu, quảng bá năng lực cá nhân một cách chuyên nghiệp trong tương lai."
+  },
+  projects: [
+    {
+      id: "bai-1",
+      lessonName: "Bài 1.4: Thao tác cơ bản với tệp tin và thư mục",
+      exerciseTitle: "Bài tập 1: Sắp xếp & Quản lý Thư mục Khoa học",
+      objective: "Thiết lập cấu trúc lưu trữ học tập thông minh, nhất quán theo nguyên tắc khoa học dữ liệu nhằm giảm 80% thời gian tìm kiếm tài liệu thông tin.",
+      processSummary: "Tiến hành phân tích sơ đồ môn học kỳ 1, nhóm các tệp tin theo mã môn, mức độ ưu tiên và định dạng tệp. Áp dụng quy tắc đặt tên tệp nhất quán quốc tế [Năm_HọcKỳ]_[MãMôn]_[TênSảnPhẩm]_[PhiênBản].",
+      result: "Đạt mốc 100% tài liệu được phân tách hoàn hảo, sơ đồ hình cây logic cho 3 môn học trọng tâm học kỳ 1, tiết kiệm đáng kể thời gian tra cứu và thiết lập thói quen làm việc số chuyên nghiệp.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Sơ đồ Cấu trúc Thư mục gốc (PDF)",
+          url: "#",
+          type: "pdf"
+        }
+      ],
+      customData: {
+        folderStructureCode: `📂 [HK1_2025-2026]_SE_Root/
+├── 📂 MAD101_Discrete_Math/
+│   ├── 📄 MAD101_Syllabus_v1.0.pdf
+│   ├── 📂 Lectures/
+│   │   ├── 📄 MAD101_Lec01_Logic_v1.pdf
+│   │   └── 📄 MAD101_Lec02_Sets_v1.pdf
+│   └── 📂 Assignments/
+│       └── 📝 MAD101_Ass01_TruthTable_v2.0.docx
+├── 📂 PRF192_C_Programming/
+│   ├── 📂 SourceCode/
+│   │   ├── 💻 PRF192_Lab1_Calculator.c
+│   │   └── 💻 PRF192_Lab2_Sorting.c
+│   └── 📄 PRF192_PracticalExam_v1.2.pdf
+└── 📂 CSI104_Computer_Introduction/
+    ├── 📂 ResearchDocs/
+    │   └── 📄 CSI104_SearchStrategy_v3.docx
+    └── 📂 TeamProject_AIPortfolio/`,
+        namingRules: [
+          "Quy tắc 1: Viết hoa không dấu hoặc tiếng Anh, kết nối bằng dấu gạch dưới (_).",
+          "Quy tắc 2: Phải bao gồm mã môn ở đầu tệp để phân loại nhanh.",
+          "Quy tắc 3: Ghi rõ số phiên bản (ví dụ v1.0, v2.1) để kiểm soát tài liệu hiệu quả.",
+          "Quy tắc 4: Thêm ngày tháng dạng YYYYMMDD đối với biên bản họp nhóm."
+        ]
+      }
+    },
+    {
+      id: "bai-2",
+      lessonName: "Bài 2.4: Tìm kiếm và đánh giá thông tin học thuật",
+      exerciseTitle: "Bài tập 2: Nghiên cứu Chiến lược Tìm kiếm & Trích dẫn",
+      objective: "Khai thác tối đa các toán tử tìm kiếm nâng cao để thu thập và bộ lọc nguồn tin học thuật đáng tin cậy về tác động của Generative AI trong ngành giáo dục.",
+      processSummary: "Sử dụng Google Scholar kết hợp 4 toán tử nâng cao để truy xuất 5 tài liệu nghiên cứu quốc tế có chỉ số trích dẫn cao, phân tích định lượng bằng bảng đánh giá nguồn tin chuẩn Craap.",
+      result: "Chắt lọc thành công 3 nguồn tham khảo chất lượng cao đạt điểm kiểm định CRAAP từ 8.5/10 trở lên, hoàn thành bản trích dẫn định dạng APA quốc tế chuẩn mực phục vụ viết báo cáo học thuật.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Báo cáo Đánh giá Tài liệu tham khảo APA (PDF)",
+          url: "#",
+          type: "pdf"
+        }
+      ],
+      customData: {
+        searchQueriesUsed: [
+          {
+            query: `"generative AI" AND "higher education" filetype:pdf site:edu`,
+            operatorExplanation: "Tìm kiếm tệp dạng PDF từ các tên miền giáo dục (.edu) chứa chính xác cả cụm từ 'generative AI' và 'higher education'."
+          },
+          {
+            query: `"artificial intelligence" OR "machine learning" inurl:curriculum NOT primary`,
+            operatorExplanation: "Tìm bài viết chứa một trong hai cụm từ AI hoặc Machine Learning, liên kết đến cấu trúc chương trình đào tạo nhưng loại bỏ cấp học tiểu học."
+          },
+          {
+            query: `intitle:"ethics" AND "AI assistants" site:researchgate.net`,
+            operatorExplanation: "Tìm các bài nghiên cứu khoa học trên ResearchGate chứa từ 'ethics' ngay trong tiêu đề bài viết và thảo luận về AI."
+          },
+          {
+            query: `related:scholar.google.com "responsible AI in classrooms"`,
+            operatorExplanation: "Tìm các nguồn bài viết, trang web có cấu trúc nội dung tương tự về chủ đề nâng cao đạo đức phòng học của AI."
+          }
+        ],
+        evaluationTableHeaders: ["Nguồn Tài Liệu", "Toán Tử Áp Dụng", "Độ Tin Cậy (CRAAP 1-10)", "Trích Dẫn APA Quốc Tế"],
+        evaluationTableRows: [
+          {
+            "Nguồn Tài Liệu": "Harvard Educational Review (2024)",
+            "Toán Tử Áp Dụng": `"generative AI" AND "higher education"`,
+            "Độ Tin Cậy (CRAAP 1-10)": "9.5/10 (Nhà xuất bản uy tín, phản biện nghiêm ngặt)",
+            "Trích Dẫn APA Quốc Tế": "Smith, J. (2024). The impact of Large Language Models on student evaluation. Harvard Educational Review, 74(2), 112-135."
+          },
+          {
+            "Nguồn Tài Liệu": "IEEE Transactions on Education",
+            "Toán Tử Áp Dụng": `intitle:"ethics" AND "AI assistants"`,
+            "Độ Tin Cậy (CRAAP 1-10)": "9.2/10 (Cơ sở dữ liệu kỹ thuật hàng đầu thế giới)",
+            "Trích Dẫn APA Quốc Tế": "Kwon, L., & Chen, M. (2023). Professional training in the age of generative agents. IEEE Transactions, 45(1), 12-25."
+          },
+          {
+            "Nguồn Tài Liệu": "MIT Technology Review (Edu Edition)",
+            "Toán Tử Áp Dụng": `"artificial intelligence" OR "machine learning"`,
+            "Độ Tin Cậy (CRAAP 1-10)": "8.5/10 (Tạp chí chuyên ngành uy tín, thông tin cập nhật nhanh)",
+            "Trích Dẫn APA Quốc Tế": "Miller, R. (2024). Adaptive learning systems in global classrooms. MIT Tech Review, Epub ahead."
+          }
+        ]
+      }
+    },
+    {
+      id: "bai-3",
+      lessonName: "Bài 3.4: Viết Prompt hiệu quả cho các tác vụ học tập",
+      exerciseTitle: "Bài tập 3: So sánh Cơ chế Hoạt động & Kỹ thuật Prompt Engineering",
+      objective: "Tối ưu hóa khả năng cộng tác với Trí tuệ nhân tạo thông qua việc thiết lập các cấu trúc Prompt tối ưu theo khung CO-STAR.",
+      processSummary: "Kiểm thí so sánh 2 kịch bản prompt: một prompt chưa tối ưu (sơ sài) và một prompt đã tối ưu (áp dụng Prompt Engineering nâng cao), làm rõ sự khác biệt vượt trội về phản hồi của mô hình ngôn ngữ lớn LLM.",
+      result: "Xây dựng được Prompt kỹ thuật CO-STAR chuẩn chỉnh giúp cải thiện 95% độ tập trung của câu trả lời, trả ra mã nguồn giải thuật C sạch kèm chú dẫn sư phạm dễ tiếp thu.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Bảng tổng hợp Prompts mẫu chuyên sâu (PDF)",
+          url: "#",
+          type: "pdf"
+        },
+        {
+          name: "Thử nghiệm so sánh trên Google AI Studio",
+          url: "https://ai.studio",
+          type: "link"
+        }
+      ],
+      customData: {
+        originalPrompt: "Hãy giải thích cho tôi thuật toán sắp xếp nhanh (Quick Sort) bằng ngôn ngữ C.",
+        improvedPrompt: `[Context (Bối cảnh)]: Tôi là một sinh viên năm nhất ngành Công nghệ kỹ thuật Điện tử - Viễn Thông đang bắt đầu học cấu trúc dữ liệu và giải thuật. Tôi có nền tảng ngữ pháp lập trình cơ bản nhưng rất khó hình dung cơ chế hoạt động của đệ quy phân đoạn.
+        
+[Objective (Mục tiêu)]: Giải thích rõ ràng nguyên lý chia để trị của thuật toán Quick Sort thông qua việc chọn trục Pivot, phân tích từng bước tháo gỡ mảng.
+
+[Style (Phong cách)]: Giảng viên đại học tận tâm, giải thích dễ hiểu, ví von sinh động.
+
+[Tone (Giọng điệu)]: Khuyến khích, sư phạm chặt chẽ.
+
+[Audience (Đối tượng người nghe)]: Lập trình viên mới học C.
+
+[Response format (Định dạng đầu ra)]: 
+- 1. Giải thích ẩn dụ thực tế (ví dụ xếp hàng học sinh).
+- 2. Đoạn mã C minh họa sạch (có chú thích từng dòng chi tiết).
+- 3. Bảng phân tích độ phức tạp thời gian (Tốt, Trung bình, Xấu) có diễn giải lý do.`,
+        aiComparisonInsight: "Prompt cải tiến sử dụng cấu trúc CO-STAR ghi rõ Bối cảnh, Đối tượng và cấu trúc Phản hồi giúp mô hình AI không trả lời chung chung mà tối ưu đúng mức độ hiểu biết của sinh viên mới. Phản hồi có cấu trúc mã lệnh sạch và phân tách rõ ràng trực quan so với kết quả hỗn loạn của prompt ban đầu.",
+        aiOutputOriginal: `Đây là code Quick Sort trong C:
+\`\`\`c
+void qSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        qSort(arr, low, pi - 1);
+        qSort(arr, pi + 1, high);
+    }
+}
+\`\`\`
+Thuật toán này chia mảng thành các mảng con dựa trên phần tử chốt (pivot) rồi đệ quy để sắp xếp mảng. Độ phức tạp là O(nlog n).`,
+        aiOutputImproved: `### 1. Ẩn dụ thực tế: Câu chuyện "Trưởng hàng học sinh"
+Hãy tưởng tượng bạn có một lớp học sinh xếp hàng hỗn lộn về chiều cao. Bạn chọn ngẫu nhiên một bạn làm "Trục Chốt" (Pivot), ví dụ là bạn Nam cao 1m60.
+- Bạn yêu cầu tất cả các bạn thấp hơn 1m60 chuyển sang đứng bên trái Nam.
+- Tất cả các bạn cao hơn hoặc bằng 1m60 chuyển sang đứng bên phải Nam.
+Lúc này, bạn Nam (Pivot) đã đứng ĐÚNG VỊ TRÍ tuyệt đối của mình trong hàng. Tiếp theo, bạn lặp lại hành động này đối với hai nhóm bên trái và bên phải. Đó chính là **Chia để trị (Divide and Conquer)**!
+
+### 2. Code C chuẩn hóa có bình luận chi tiết
+\`\`\`c
+#include <stdio.h>
+
+// Hàm hoán vị hai phần tử
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Hàm chia mảng để tìm vị trí trục chốt
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high]; // Chọn phần tử cuối cùng làm chốt
+    int i = (low - 1);     // Chỉ mục của phần tử nhỏ hơn
+
+    for (int j = low; j < high; j++) {
+        // Nếu phần tử hiện tại nhỏ hơn chốt
+        if (arr[j] < pivot) {
+            i++; 
+            swap(&arr[i], &arr[j]); // Đưa phần tử nhỏ hơn sang trái
+        }
+    }
+    swap(&arr[i + 1], &arr[high]); // Đưa Pivot về đúng vị trí giữa
+    return (i + 1);
+}
+
+// Hàm đệ quy QuickSort chính
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high); // Chỉ số phân hoạch
+        quickSort(arr, low, pi - 1);       // Sắp xếp đệ quy mảng trái
+        quickSort(arr, pi + 1, high);      // Sắp xếp đệ quy mảng phải
+    }
+}
+\`\`\`
+
+### 3. Phân tích độ phức tạp thuật toán
+| Trường hợp | Độ phức tạp | Lý giải nguyên nhân |
+|---|---|---|
+| Tốt nhất | O(n log n) | Mỗi lần chia đôi mảng đều tăm tắp ở chính giữa. |
+| Trung bình | O(n log n) | Phân bố ngẫu nhiên trong thực tế. |
+| Xấu nhất | O(n²) | Mảng đã được xếp hoàn toàn, trục chốt chọn lệch cực đoan. |`
+      }
+    },
+    {
+      id: "bai-4",
+      lessonName: "Bài 4.4: Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm",
+      exerciseTitle: "Bài tập 4: Tổ chức Công việc với Kanban & Trực quan hóa Tiến độ",
+      objective: "Thiết lập môi trường làm việc số tối ưu hiệu suất phối hợp nhóm từ xa, đảm bảo 100% thời hạn được bàn giao đúng hạn.",
+      processSummary: "Sử dụng công cụ quản lý dự án trực quan (Notion Kanban, Trello, hoặc GitProject) để phân rã 8 đầu việc trọng tâm xây dựng Portfolio này, thực hiện kiểm soát chéo và cập nhật trạng thái làm việc theo tuần.",
+      result: "Hoàn thành phân rã 8 đầu việc cốt lõi, thiết lập bảng điều khiển Notion Kanban nhóm trực quan giúp gia tăng hiệu năng phối hợp từ xa và loại bỏ hoàn toàn tình trạng trễ hạn bàn giao.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Sơ đồ Cộng tác Nhóm trên Notion (Link)",
+          url: "https://notion.so",
+          type: "link"
+        },
+        {
+          name: "Kế hoạch phân rã nhiệm vụ WBS (PDF)",
+          url: "#",
+          type: "pdf"
+        }
+      ],
+      customData: {
+        collabToolsUsed: ["Notion (Môi trường Wiki & Kanban Board)", "Figma (Thiết kế giao diện Wireframe)", "GitHub (Tích hợp mã nguồn chung)", "Google Meet & Discord (Giao tiếp nhóm nhanh)"],
+        collabWorkflowDescription: "Nhóm áp dụng phương pháp phát triển linh hoạt Scrum. Đầu tuần, nhóm xác lập Tasklist trong mục 'Backlog', sau đó kéo các nhiệm vụ sang 'In Progress', 'In Review' và 'Done'. Mọi quá trình xử lý đều kèm log thảo luận và liên kết file sản phẩm đẩy trực tiếp lên đám mây.",
+        collabEvidenceLink: "https://notion.so/kanban-board-student-project"
+      }
+    },
+    {
+      id: "bai-5",
+      lessonName: "Bài 5.4: Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung",
+      exerciseTitle: "Bài tập 5: Khám phá Kỹ năng Tạo ảnh & Viết Kịch bản với AI",
+      objective: "Sử dụng các hệ thống AI tạo sinh mỹ thuật và văn bản tiên tiến để phát triển bộ nhận diện thương hiệu cá nhân sáng tạo và nội dung chuyên trang.",
+      processSummary: "Sử dụng mô hình Gemini tạo ảnh chất lượng cao để sinh ảnh đại diện chân dung nghệ thuật, đồng thời kết hợp ChatGPT để phác thảo bài giới thiệu mở đầu đầy thu hút.",
+      result: "Sản xuất thành công bộ nhận diện thương hiệu cá nhân sắc nét gồm 1 tác phẩm mỹ thuật số Digital Art chất lượng cao và kịch bản video giới thiệu học tập được văn hóa chuyên nghiệp.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Bộ Sưu tập Sản phẩm AI Art (Link)",
+          url: "#",
+          type: "link"
+        }
+      ],
+      customData: {
+        genAiToolsUsed: ["Gemini 3.5 Flash (Xây dựng kịch bản, đề tài & Content)", "Midjourney / Bing Image Creator (Tạo sinh hình ảnh chủ đề công nghệ)", "Canva AI (Hiệu chỉnh tích hợp đồ họa)"],
+        genAiProducts: [
+          {
+            title: "Hình ảnh khóa kỹ thuật số tương lai (Digital Key Art)",
+            desc: "Prompt sử dụng: 'An artistic high-tech circuit board glowing neon green under ultraviolet light, with glowing bits of floating data floating around, cinematic, highly detailed --ar 16:9'",
+            previewUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=600",
+            productType: "image"
+          },
+          {
+            title: "Video giới thiệu học tập kỹ năng số",
+            desc: "Slide bài giảng số hóa và kịch bản thuyết minh được hiệu đính bởi mô hình ngôn ngữ lớn để đảm bảo ngữ văn cuốn hút và cấu trúc sư phạm chuyên nghiệp.",
+            previewUrl: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=600",
+            productType: "video"
+          }
+        ]
+      }
+    },
+    {
+      id: "bai-6",
+      lessonName: "Bài 6.4: Sử dụng AI có trách nhiệm trong học tập và nghiên cứu",
+      exerciseTitle: "Bài tập 6: Thiết lập Khung Nguyên tắc Đạo đức AI Cá nhân",
+      objective: "Tuyên bố bộ quy tắc danh dự lập thân học tập, phòng tránh rủi ro xâm hại đạo đức, đảm bảo liêm chính công nghệ số quốc tế.",
+      processSummary: "Phân tích các thách thức đạo đức của AI (đạo văn, thiên kiến dữ liệu, mất năng lực tư duy độc lập). Thiết lập bộ 4 nguyên tắc sử dụng AI có kiểm duyệt chặt chẽ.",
+      result: "Thông qua bộ 4 quy tắc vàng Đạo đức AI cá nhân và bản Tuyên bố Liêm chính Học thuật danh dự, xây dựng phương án kiểm chứng chéo chặt chẽ chống hư cấu dữ liệu.",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&q=80&w=600"
+      ],
+      attachments: [
+        {
+          name: "Bộ quy tắc Đạo đức AI cá nhân đầy đủ (PDF)",
+          url: "#",
+          type: "pdf"
+        }
+      ],
+      customData: {
+        responsibleAiRules: [
+          "Nguyên tắc 1: AI là cố vấn gợi ý, tuyệt đối không chép sao chép mù quáng không qua phân tích phê phán.",
+          "Nguyên tắc 2: Luôn minh bạch và tuyên bố rõ ràng tỷ lệ, cấu trúc đóng góp của AI trong tất cả báo cáo nộp học phẩm.",
+          "Nguyên tắc 3: Bảo mật thông tin: Không gửi dữ liệu cá nhân nhạy cảm của bản thân, trường học hoặc doanh nghiệp lên các mô hình AI công cộng.",
+          "Nguyên tắc 4: Kiểm chứng chéo và đối chiếu dữ liệu gốc từ các học thuật tin cậy để phòng tránh việc AI hư cấu thông tin (Hallucination)."
+        ],
+        academicEthicsStatement: "Chúng tôi cam kết sử dụng công cụ Trí tuệ Nhân tạo làm bệ phóng tối ưu năng suất thay vì thay thế tư duy sáng tạo chủ động của một Kỹ sư tương lai. Liêm chính và trung thực học thuật luôn là giá trị cốt lõi danh dự.",
+        ethicsSolutions: "Giải quyết rủi ro AI hư cấu (AI Hallucination) bằng cách: Luôn kiểm tra từng tài liệu trích dẫn từ nguồn sách báo chính thống trực tiếp thay vì tin tưởng link nguồn do AI tự vẽ ra. Đăng ký tài khoản các phần mềm rà soát đạo văn chính thức để kiểm chứng chéo trước khi nộp sản phẩm cuối cùng."
+      }
+    }
+  ],
+  reflection: {
+    overallReflection: "Quá trình xây dựng sản phẩm Portfolio số hóa này đã mở ra cho tôi một góc nhìn hoàn toàn mới về cách tổ chức tri thức trong thế kỷ 21. Từ sự lúng túng ban đầu trong quản lý thư mục, tôi đã học được cách làm chủ quy trình, tiếp cận thông tin học thuật nghiêm túc, cộng tác thời gian thực vượt trội dựa trên chỉ số Kanban và đặc biệt là làm chủ nghệ thuật giao tiếp với trí tuệ nhân tạo.",
+    keySkillsLearned: [
+      "Quản lý tệp cấu trúc khoa học dữ liệu gốc",
+      "Khai thác toán tử tìm kiếm nâng cao (Search Operators)",
+      "Kế hoạch cấu trúc prompt nâng cao (CO-STAR & Few-Shot Prompting)",
+      "Định giá nguồn tin nghiên cứu CRAAP quốc tế",
+      "Hợp tác quản trị Kanban agile & Git",
+      "Thực hành ứng dụng AI sáng tạo có đạo đức và trách nhiệm xã hội"
+    ],
+    favoriteFeature: "Tôi vô cùng tâm đắc với bài tập 3 về Prompt Engineering. Nó đã hoàn toàn làm thay đổi bản chất phương pháp học của tôi, giúp tôi biến AI từ một công cụ tra cứu hỏi đáp thành một trợ giảng thông minh có thể tư duy chiều sâu theo bối cảnh cá nhân hóa.",
+    challengesFaced: [
+      {
+        challenge: "Xung đột cấu trúc thư mục giữa các thành viên của dự án nhóm ở Bài tập 4.",
+        solution: "Nhóm biên soạn một quy tắc thống nhất (Convention Doc) chung trên Notion Wiki, yêu cầu mọi người ký kết danh dự và rà soát tự động trước khi đẩy tệp lên thư mục đóng góp."
+      },
+      {
+        challenge: "AI bị hiện tượng hư cấu học thuyết khoa học ở Bài tập 2 khi yêu cầu tham khảo nguồn.",
+        solution: "Tắt chế độ viết tự do của AI, thay vào đó nạp trực tiếp file PDF gốc vào ngữ cảnh của AI và yêu cầu trích xuất số trang chính thức của tác giả để đối chiếu chéo."
+      }
+    ],
+    futureApplications: "Trong tương lai, tôi sẽ áp dụng triệt để bộ khung quy trình số này vào các đồ án chuyên ngành phức tạp sắp tới. Nhất là quản lý thiết kế Figma của đồ án tốt nghiệp, tối ưu hóa viết tài liệu đặc tả nhu cầu phần mềm SRS bằng Prompt Engineering, phát huy tối đa tinh thần liêm chính công nghệ số!"
+  }
+};

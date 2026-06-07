@@ -1,0 +1,6 @@
+{
+  "name": "Hệ thống Portfolio Cá nhân",
+  "description": "Trình thiết kế và tạo Portfolio cá nhân chuyên nghiệp, mô phỏng Google Sites với giao diện hiện đại, tính năng chỉnh sửa nội dung trực tiếp và trợ lý AI tối ưu nội dung.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
